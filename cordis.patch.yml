@@ -1,0 +1,4 @@
+- insert:
+    - id: dsh-gui-bridge
+      name: 'dsh-gui-bridge'
+      config: {}

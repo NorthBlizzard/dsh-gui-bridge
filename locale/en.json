@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "GUI bridge",
+    "description": "Gives the agent five tools that perform DeepSeek Harness GUI operations on your behalf: list, create, rename, fork, archive, pin, message, and cancel sessions; register, rename, reorder, and remove workspaces and regroup their sessions; read and switch a session's permission mode; read and write Settings; and find plugins in the bundle catalog or a configured market index, read their description, and enable or disable installed plugins. Ask the agent in plain language — for example \"make a workspace for this folder\", \"switch this session to read-only\", or \"find a plugin that renders charts\" — and it calls the matching dsh_gui_* tool. Narrowing a session's permission mode is allowed; raising the sandbox level or dropping approval prompts is refused unless the modeWidening setting is \"allow\". Package installation and removal stay with the approval-gated plugin_manager tool. With the plugin turned off, its five dsh_gui_* tools disappear; sessions, workspaces, and settings it already changed stay as they are."
+  }
+}
