@@ -686,8 +686,9 @@ function marketTool(ctx, options) {
     description:
       'Browse and govern DeepSeek Harness plugins. `catalog` lists the plugin bundles this installation offers and the profile has, '
       + 'including official ones not installed yet, with the install spec to hand to plugin_manager. `indexes`, `search`, and `detail` '
-      + 'read remote market indexes configured under Settings > Plugins. `installed` lists bundles and plugin rows with their status, '
-      + 'and `enable`/`disable` toggle one. Installing, updating, and removing packages stays with the approval-gated plugin_manager tool.',
+      + 'read remote market indexes configured under Settings > Plugins, and `add_source` registers one more. `installed` lists bundles '
+      + 'and plugin rows with their status, and `enable`/`disable` toggle one. Installing, updating, and removing packages stays with '
+      + 'the approval-gated plugin_manager tool.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -695,11 +696,14 @@ function marketTool(ctx, options) {
         action: {
           type: 'string',
           description: 'Operation to perform.',
-          enum: ['catalog', 'indexes', 'search', 'detail', 'installed', 'enable', 'disable'],
+          enum: ['catalog', 'indexes', 'add_source', 'search', 'detail', 'installed', 'enable', 'disable'],
         },
         name: { type: 'string', description: 'Plugin package name, for `detail`.' },
         version: { type: 'string', description: 'Version to describe, for `detail`. Defaults to the entry\'s default version.' },
-        index_url: { type: 'string', description: 'Market index URL, from `indexes`. Defaults to the first configured index.' },
+        index_url: {
+          type: 'string',
+          description: 'Market index URL: the source to select, or the one `add_source` registers. Defaults to the first configured index.',
+        },
         text: { type: 'string', description: 'Search words, for `search`.' },
         category: { type: 'string', description: 'Category filter, for `search`.' },
         labels: { type: 'array', items: { type: 'string' }, description: 'Label filter, for `search`.' },
@@ -770,6 +774,28 @@ function marketTool(ctx, options) {
               const row = { url: entry.url }
               if (entry.title !== undefined) row.title = entry.title
               if (entry.description !== undefined) row.description = entry.description
+              if (entry.error !== undefined) row.error = entry.error
+              return row
+            }),
+          }
+        }
+        case 'add_source': {
+          if (typeof args.index_url !== 'string' || args.index_url === '') {
+            throw new Error('index_url is required for `add_source`')
+          }
+          const market = service(ctx, 'pluginMarket')
+          const before = market.listIndexes().map((entry) => entry.url)
+          const known = before.includes(args.index_url)
+          if (!known) {
+            await call(`adding ${args.index_url}`, () => market.setIndexes([...before, args.index_url]))
+          }
+          const after = market.listIndexes()
+          return {
+            added: !known,
+            total: after.length,
+            indexes: after.map((entry) => {
+              const row = { url: entry.url }
+              if (entry.title !== undefined) row.title = entry.title
               if (entry.error !== undefined) row.error = entry.error
               return row
             }),

@@ -11,7 +11,7 @@ same Host service the browser calls, so anything created or changed is persisted
 | `dsh_gui_workspace` | `list`, `create`, `rename`, `delete`, `reorder`, `move_session` |
 | `dsh_gui_mode` | `list`, `set` |
 | `dsh_gui_settings` | `describe`, `update`, `replace`, `mutate` |
-| `dsh_gui_market` | `catalog`, `indexes`, `search`, `detail`, `installed`, `enable`, `disable` |
+| `dsh_gui_market` | `catalog`, `indexes`, `add_source`, `search`, `detail`, `installed`, `enable`, `disable` |
 
 `session_id` defaults to the calling session. `dsh_gui_settings` lists namespace keys in `describe`
 and returns one namespace's schema and values when `namespace` is given. `dsh_gui_market` `catalog`
@@ -32,6 +32,13 @@ Or install the repository directly:
 
 ```sh
 dsh plugin --profile desktop add "git+https://github.com/NorthBlizzard/dsh-gui-bridge.git"
+```
+
+Once the plugin is running, the agent can register that index source itself:
+
+```
+dsh_gui_market  action: add_source
+                index_url: https://raw.githubusercontent.com/NorthBlizzard/dsh-gui-bridge/main/market/index.json
 ```
 
 Restart is not required when the profile applies changes live.
