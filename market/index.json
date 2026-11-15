@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "title": {
+    "en": "NorthBlizzard plugins",
+    "zh": "NorthBlizzard 插件"
+  },
+  "description": {
+    "en": "Plugins for DeepSeek Harness published by NorthBlizzard",
+    "zh": "NorthBlizzard 发布的 DeepSeek Harness 插件"
+  },
+  "metadata": {
+    "categories": {
+      "extension": {
+        "title": {
+          "en": "Extension",
+          "zh": "扩展"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-gui-bridge",
+      "title": {
+        "en": "GUI bridge",
+        "zh": "GUI 桥接"
+      },
+      "description": {
+        "en": "Agent tools that drive DeepSeek Harness GUI operations: sessions, workspaces, permission mode, settings, and the plugin market.",
+        "zh": "让智能体直接操作 DeepSeek Harness 图形界面：会话、工作区、权限模式、设置与插件市场。"
+      },
+      "icon": "icons/gui-bridge.svg",
+      "author": "NorthBlizzard",
+      "homepage": "https://github.com/NorthBlizzard/dsh-gui-bridge#readme",
+      "repository": {
+        "url": "https://github.com/NorthBlizzard/dsh-gui-bridge"
+      },
+      "metadata": {
+        "category": "extension",
+        "keywords": [
+          "dsh",
+          "dsh-plugin",
+          "gui",
+          "automation",
+          "sessions",
+          "workspaces",
+          "settings",
+          "tools"
+        ]
+      },
+      "dist-tags": {
+        "latest": "1.0.0"
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1794764377,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/NorthBlizzard/dsh-gui-bridge",
+            "commit": "eb2f76bcf286393abb15da5ff19df9b2f8bf28be"
+          },
+          "engines": {
+            "dsh": ">=0.2.2-rc.3 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
